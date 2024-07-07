@@ -2,6 +2,8 @@ import { drizzle } from 'drizzle-orm/d1';
 import * as schema from './schema';
 import { getRequestContext } from '@cloudflare/next-on-pages'
 
+export const runtime = 'edge'
+
 export const tables = schema;
 
 function initDbConnection() {
@@ -13,6 +15,4 @@ function initDbConnection() {
   return process.env.DB as unknown as D1Database;
 }
 
-export function getDB() {
-  return drizzle(initDbConnection(), { schema});
-}
+export const db = drizzle(initDbConnection(), { schema})
