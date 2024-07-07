@@ -1,8 +1,8 @@
-export default function HomePage() {
+export default function AppPage() {
   return (
     <main>
       <div>
-        <h1>Hello</h1>
+        <h1>App</h1>
       </div>
     </main>
   );

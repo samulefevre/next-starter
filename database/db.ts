@@ -6,13 +6,21 @@ export const runtime = 'edge'
 
 export const tables = schema;
 
-function initDbConnection() {
+function initDbConnection(): D1Database {
   if(process.env.NODE_ENV === 'development') {
     const { env } = getRequestContext();
 
     return env.DB;
   }
+
+  if (!process.env.DB) {
+    throw new Error('DB environment variable is not set');
+  }
   return process.env.DB as unknown as D1Database;
 }
 
-export const db = drizzle(initDbConnection(), { schema})
+export function getDb() {
+  return drizzle(initDbConnection(), { schema });
+}
+
+export const db = getDb();

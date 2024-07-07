@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,9 +8,15 @@ import {
 } from "@/components/ui/navigation-menu"
 import Link from "next/link";
 
-export default function Header() {
+export default async function Header() {
+  const session = await auth()
+
   return (
+
     <header className="">
+      {session && (
+        <pre>{JSON.stringify(session, null, 2)}</pre>
+      )}
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>

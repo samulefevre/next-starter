@@ -1,13 +1,11 @@
 import { signIn } from "@/auth"
 
-export const runtime = 'edge'
-
 export function GoogleForm() {
   return (
     <form
       action={async () => {
         "use server"
-        await signIn("google")
+        await signIn("google", { redirectTo: "/app" })
       }}
     >
       <button type="submit">Signin with Google</button>
