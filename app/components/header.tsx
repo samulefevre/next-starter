@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -13,10 +14,7 @@ export default async function Header() {
 
   return (
 
-    <header className="">
-      {session && (
-        <pre>{JSON.stringify(session, null, 2)}</pre>
-      )}
+    <header className="flex flex-row justify-between">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -35,6 +33,16 @@ export default async function Header() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+
+
+      {session && (<form
+        action={async () => {
+          "use server"
+          await signOut({ redirectTo: "/" })
+        }}
+      >
+        <Button type="submit">Signout</Button>
+      </form>)}
     </header>
   );
 }
